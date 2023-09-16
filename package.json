@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/kaiosilveira/refactoring-catalog-cli.git"
   },
+  "bin": {
+    "generate-cmt-table": "./dist/index.js"
+  },
   "scripts": {
     "dev": "tsnd --ignore-watch node_modules src/index.ts",
     "start": "node dist/index.js",
