@@ -1,8 +1,9 @@
 {
-  "name": "nodejs-ts-express-template",
-  "version": "1.0.2",
-  "main": "index.js",
+  "name": "@kaiosilveira/refactoring-catalog-cli",
+  "version": "0.0.2",
+  "main": "dist/index.ts",
   "license": "MIT",
+  "repository": "https://github.com/kaiosilveira/refactoring-catalog-cli.git",
   "scripts": {
     "dev": "tsnd --ignore-watch node_modules src/index.ts",
     "start": "node dist/index.js",
@@ -11,7 +12,8 @@
     "prettier:check": "npx prettier --check ./src",
     "prettier:fix": "npx prettier --write ./src",
     "lint": "npx eslint src/**/*.ts",
-    "cmt": "npx git-cz"
+    "cmt": "npx git-cz",
+    "generate-cmt-table": "node ./dist"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
