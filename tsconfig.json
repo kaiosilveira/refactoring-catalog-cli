@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "src/__mocks__/", "dist/**/*", "dist/test/**/*"],
+  "compilerOptions": {
+    "moduleResolution": "Node16",
+    "target": "ES5",
+    "outDir": "dist",
+    "noImplicitAny": false
+  }
+}
