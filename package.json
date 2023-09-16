@@ -3,7 +3,10 @@
   "version": "0.0.2",
   "main": "dist/index.ts",
   "license": "MIT",
-  "repository": "https://github.com/kaiosilveira/refactoring-catalog-cli.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaiosilveira/refactoring-catalog-cli.git"
+  },
   "scripts": {
     "dev": "tsnd --ignore-watch node_modules src/index.ts",
     "start": "node dist/index.js",
