@@ -1,0 +1,8 @@
+{
+  "version": "v1",
+  "packages": {
+    "@kaiosilveira/refactoring-catalog-cli": {
+      "signature": "daf3fd31fe3cba4a16055dda33aadbbb"
+    }
+  }
+}
