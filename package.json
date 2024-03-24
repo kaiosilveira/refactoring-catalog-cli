@@ -8,7 +8,7 @@
     "url": "https://github.com/kaiosilveira/refactoring-catalog-cli.git"
   },
   "bin": {
-    "generate-cmt-table": "./dist/generate-cmt-table.js"
+    "refactoring-catalog-cli": "dist/index.js"
   },
   "scripts": {
     "dev": "tsnd --ignore-watch node_modules src/index.ts",
@@ -18,8 +18,7 @@
     "prettier:check": "npx prettier --check ./src",
     "prettier:fix": "npx prettier --write ./src",
     "lint": "npx eslint src/**/*.ts",
-    "cmt": "npx git-cz",
-    "generate-cmt-table": "node ./dist/generate-cmt-table"
+    "cmt": "npx git-cz"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.0",
