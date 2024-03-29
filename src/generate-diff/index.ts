@@ -19,3 +19,14 @@ export function mapCommitHistoryToDiffObjects(commitHistory: string): any[] {
     mapCommitTextToDiffObj(commitHistory.substring(d.index as unknown as number)),
   );
 }
+
+export function generateCommitDiffMarkdown(diff: any): string {
+  return `
+    - ${diff.message}:
+      
+    \`\`\`diff
+    ${diff.description}
+    ${diff.contents}
+    \`\`\`
+  `;
+}
