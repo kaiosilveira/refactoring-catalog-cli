@@ -1,6 +1,6 @@
 {
   "name": "@kaiosilveira/refactoring-catalog-cli",
-  "version": "0.3.30",
+  "version": "0.3.31",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": {
