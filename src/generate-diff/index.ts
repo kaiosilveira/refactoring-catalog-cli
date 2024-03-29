@@ -16,18 +16,28 @@ export function mapCommitTextToDiffObj(commit: string): any {
 }
 
 export function mapCommitHistoryToDiffObjects(commitHistory: string): any[] {
-  return [...commitHistory.matchAll(/(?=commit)/g)].map(d =>
-    mapCommitTextToDiffObj(commitHistory.substring(d.index as unknown as number)),
-  );
+  const groups: string[] = [];
+
+  let commit = '';
+  for (const line of commitHistory.split('\n')) {
+    if (/commit\s\w{40}/gi.test(line)) {
+      if (commit) groups.push(commit);
+      commit = line;
+    } else {
+      commit += '\n' + line;
+    }
+  }
+
+  return groups.map(mapCommitTextToDiffObj);
 }
 
 export function generateCommitDiffMarkdown(diff: any): string {
   return `
-    - ${diff.message}:
+- ${diff.message}:
 
-    \`\`\`diff
-    ${diff.contents}
-    \`\`\`
+\`\`\`diff
+${diff.contents}
+\`\`\`
   `;
 }
 

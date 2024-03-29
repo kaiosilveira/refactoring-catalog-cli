@@ -1,0 +1,167 @@
+commit 13b64a068556a5b637c0e0e66d4382b5be0667dd
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 12:47:14 2024 +0000
+
+    distance-travelled: rename `acc` to `primaryAcceleration` and redeclare `acc` later
+
+diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js
+index d2aa02b..0791bd6 100644
+--- a/src/distance-travelled/index.js
++++ b/src/distance-travelled/index.js
+@@ -1,12 +1,12 @@
+ export function distanceTravelled(scenario, time) {
+   let result;
+-  let acc = scenario.primaryForce / scenario.mass;
++  let primaryAcceleration = scenario.primaryForce / scenario.mass;
+   let primaryTime = Math.min(time, scenario.delay);
+-  result = 0.5 * acc * primaryTime * primaryTime;
++  result = 0.5 * primaryAcceleration * primaryTime * primaryTime;
+   let secondaryTime = time - scenario.delay;
+   if (secondaryTime > 0) {
+-    let primaryVelocity = acc * scenario.delay;
+-    acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
++    let primaryVelocity = primaryAcceleration * scenario.delay;
++    let acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+     result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime * secondaryTime;
+   }
+   return result;
+
+commit d9435cc944a2a56f5e9241484fd2302980927b42
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:36:27 2024 +0000
+
+    distance-travelled: make `primaryAcceleration` a `const`
+
+diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js
+index 0791bd6..51eaca1 100644
+--- a/src/distance-travelled/index.js
++++ b/src/distance-travelled/index.js
+@@ -1,6 +1,6 @@
+ export function distanceTravelled(scenario, time) {
+   let result;
+-  let primaryAcceleration = scenario.primaryForce / scenario.mass;
++  const primaryAcceleration = scenario.primaryForce / scenario.mass;
+   let primaryTime = Math.min(time, scenario.delay);
+   result = 0.5 * primaryAcceleration * primaryTime * primaryTime;
+   let secondaryTime = time - scenario.delay;
+
+commit 880c2237b0aedb76c60dfe67a1742f1977b82f87
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:34:37 2024 +0000
+
+    distance-travelled: rename `acc` to `secondaryAcceleration`
+
+diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js
+index 51eaca1..f82fe08 100644
+--- a/src/distance-travelled/index.js
++++ b/src/distance-travelled/index.js
+@@ -6,8 +6,9 @@ export function distanceTravelled(scenario, time) {
+   let secondaryTime = time - scenario.delay;
+   if (secondaryTime > 0) {
+     let primaryVelocity = primaryAcceleration * scenario.delay;
+-    let acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+-    result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime * secondaryTime;
++    let secondaryAcceleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
++    result +=
++      primaryVelocity * secondaryTime + 0.5 * secondaryAcceleration * secondaryTime * secondaryTime;
+   }
+   return result;
+ }
+
+commit 03d9e4690eceb16e986f9b0a3da62e77d00f87b6
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:34:59 2024 +0000
+
+    distance-travelled: make `secondaryAcceleration` a `const`
+
+diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js
+index f82fe08..a72a451 100644
+--- a/src/distance-travelled/index.js
++++ b/src/distance-travelled/index.js
+@@ -6,7 +6,7 @@ export function distanceTravelled(scenario, time) {
+   let secondaryTime = time - scenario.delay;
+   if (secondaryTime > 0) {
+     let primaryVelocity = primaryAcceleration * scenario.delay;
+-    let secondaryAcceleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
++    const secondaryAcceleration = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+     result +=
+       primaryVelocity * secondaryTime + 0.5 * secondaryAcceleration * secondaryTime * secondaryTime;
+   }
+
+commit aa5a0324e749d7ad51664c498b27a10685edd311
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:39:06 2024 +0000
+
+    assigning-to-input-param: split `inputValue` by introducing `originalInputValue`
+
+diff --git a/src/assigning-to-input-param/index.js b/src/assigning-to-input-param/index.js
+index 7b30ba5..39c83cc 100644
+--- a/src/assigning-to-input-param/index.js
++++ b/src/assigning-to-input-param/index.js
+@@ -1,4 +1,5 @@
+-export function discount(inputValue, quantity) {
++export function discount(originalInputValue, quantity) {
++  let inputValue = originalInputValue;
+   if (inputValue > 50) inputValue = inputValue - 2;
+   if (quantity > 100) inputValue = inputValue - 1;
+   return inputValue;
+
+commit bb3f2372d9223ab5cec399173a29dfb4a7435294
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:42:17 2024 +0000
+
+    assigning-to-input-param: rename `inputValue` to `result`
+
+diff --git a/src/assigning-to-input-param/index.js b/src/assigning-to-input-param/index.js
+index 39c83cc..ca45949 100644
+--- a/src/assigning-to-input-param/index.js
++++ b/src/assigning-to-input-param/index.js
+@@ -1,6 +1,6 @@
+ export function discount(originalInputValue, quantity) {
+-  let inputValue = originalInputValue;
+-  if (inputValue > 50) inputValue = inputValue - 2;
+-  if (quantity > 100) inputValue = inputValue - 1;
+-  return inputValue;
++  let result = originalInputValue;
++  if (result > 50) result = result - 2;
++  if (quantity > 100) result = result - 1;
++  return result;
+ }
+
+commit f27488c663e40627bb1a03a196e9c16e33ad6b66
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:42:45 2024 +0000
+
+    assigning-to-input-param: rename `originalInputValue` to `inputValue`
+
+diff --git a/src/assigning-to-input-param/index.js b/src/assigning-to-input-param/index.js
+index ca45949..4513371 100644
+--- a/src/assigning-to-input-param/index.js
++++ b/src/assigning-to-input-param/index.js
+@@ -1,5 +1,5 @@
+-export function discount(originalInputValue, quantity) {
+-  let result = originalInputValue;
++export function discount(inputValue, quantity) {
++  let result = inputValue;
+   if (result > 50) result = result - 2;
+   if (quantity > 100) result = result - 1;
+   return result;
+
+commit f5c824991faa9f14459b5222bf79b2198e9fda38
+Author: Kaio Silveira <silveira.kaio@icloud.com>
+Date:   Fri Mar 29 13:43:37 2024 +0000
+
+    assigning-to-input-param: use `inputValue` as a basis for the first discount rule
+
+diff --git a/src/assigning-to-input-param/index.js b/src/assigning-to-input-param/index.js
+index 4513371..2a85eac 100644
+--- a/src/assigning-to-input-param/index.js
++++ b/src/assigning-to-input-param/index.js
+@@ -1,6 +1,6 @@
+ export function discount(inputValue, quantity) {
+   let result = inputValue;
+-  if (result > 50) result = result - 2;
++  if (inputValue > 50) result = result - 2;
+   if (quantity > 100) result = result - 1;
+   return result;
+ }
