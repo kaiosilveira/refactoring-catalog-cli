@@ -13,3 +13,9 @@ export function mapCommitTextToDiffObj(commit: string): any {
     contents: contents.slice(3).join('\n'),
   };
 }
+
+export function mapCommitHistoryToDiffObjects(commitHistory: string): any[] {
+  return [...commitHistory.matchAll(/(?=commit)/g)].map(d =>
+    mapCommitTextToDiffObj(commitHistory.substring(d.index as unknown as number)),
+  );
+}
