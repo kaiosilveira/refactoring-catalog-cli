@@ -97,12 +97,9 @@ describe('mapCommitTextToDiffObj', () => {
       'distance-travelled: rename `acc` to `primaryAcceleration` and redeclare `acc` later',
     );
 
-    expect(diff.description).toEqual(
-      'diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js',
-    );
-
     expect(diff.contents.split('\n').map((l: string) => l.trim())).toEqual(
       `
+        +++ b/src/distance-travelled/index.js
         @@ -1,12 +1,12 @@
         export function distanceTravelled(scenario, time) {
           let result;
@@ -144,7 +141,6 @@ describe('generateCommitDiffMarkdown', () => {
       date: 'Fri Mar 29 12:47:14 2024 +0000',
       message:
         'distance-travelled: rename `acc` to `primaryAcceleration` and redeclare `acc` later',
-      description: 'diff --git a/src/distance-travelled/index.js b/src/distance-travelled/index.js',
       contents:
         '@@ -1,12 +1,12 @@\n' +
         ' export function distanceTravelled(scenario, time) {\n' +
@@ -191,7 +187,6 @@ describe('generateCommitDiffMarkdown', () => {
       - ${diff.message}:
 
       \`\`\`diff
-      ${diff.description}
       ${diff.contents}
       \`\`\`
     `

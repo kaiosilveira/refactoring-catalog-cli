@@ -1,7 +1,7 @@
 import { exec } from 'child_process';
 
 export function mapCommitTextToDiffObj(commit: string): any {
-  const [commitLine, authorLine, dateLine, messageLine, descriptionLine, ...contents] = commit
+  const [commitLine, authorLine, dateLine, messageLine, ...contents] = commit
     .trim()
     .split('\n')
     .filter(l => l.trim() !== '');
@@ -11,7 +11,6 @@ export function mapCommitTextToDiffObj(commit: string): any {
     author: authorLine.match(/Author: (.*)/)?.[1],
     date: dateLine.match(/Date: (.*)/)?.[1].trim(),
     message: messageLine.trim(),
-    description: descriptionLine.trim(),
     contents: contents.slice(3).join('\n'),
   };
 }
@@ -25,9 +24,8 @@ export function mapCommitHistoryToDiffObjects(commitHistory: string): any[] {
 export function generateCommitDiffMarkdown(diff: any): string {
   return `
     - ${diff.message}:
-      
+
     \`\`\`diff
-    ${diff.description}
     ${diff.contents}
     \`\`\`
   `;
