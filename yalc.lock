@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "@kaiosilveira/refactoring-catalog-cli": {
-      "signature": "9699795a8da2bb9e00182cfcd6f167aa"
+      "signature": "be9e27bf8fac468f963f0fe46918db12"
     }
   }
 }
