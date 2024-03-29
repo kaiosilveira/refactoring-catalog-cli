@@ -3,6 +3,7 @@
 import * as yargs from 'yargs';
 import generateCommitHistoryTable from './generate-cmt-table';
 import generatePatchMarkdown from './generate-diff';
+import prepareRepository from './prepare-repository';
 
 (async () => {
   await yargs
@@ -41,6 +42,19 @@ import generatePatchMarkdown from './generate-diff';
           }).argv;
       },
       generatePatchMarkdown,
+    )
+    .command(
+      'prepare-repository',
+      'Prepare the repository with metadata and tags',
+      async yargs => {
+        return await yargs.usage('Usage: -r <repository_name>').option('r', {
+          alias: 'repo-name',
+          describe: 'Your repository name',
+          type: 'string',
+          demandOption: true,
+        }).argv;
+      },
+      prepareRepository,
     )
     .strictCommands()
     .demandCommand(1, 'You need at least one command before moving on')
