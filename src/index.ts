@@ -6,7 +6,7 @@ import {
   createCommitHistoryTableHeaders,
   createCommitHistoryTableRow,
   fetchReversedOneLineCommitHistory,
-} from './impl';
+} from './generate-cmt-table';
 
 const generateCommitHistoryTable = async (argv: yargs.Arguments): Promise<void> => {
   const repoName = argv['repo-name'] as string;
