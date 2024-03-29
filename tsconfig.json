@@ -4,7 +4,7 @@
   "exclude": ["node_modules", "src/__mocks__/", "dist/**/*", "dist/test/**/*"],
   "compilerOptions": {
     "moduleResolution": "Node16",
-    "target": "ES5",
+    "target": "ES6",
     "outDir": "dist",
     "noImplicitAny": false
   }
