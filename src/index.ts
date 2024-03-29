@@ -1,22 +1,7 @@
 #!/usr/bin/env node
 
 import * as yargs from 'yargs';
-import { exec } from 'child_process';
-import {
-  createCommitHistoryTableHeaders,
-  createCommitHistoryTableRow,
-  fetchReversedOneLineCommitHistory,
-} from './generate-cmt-table';
-
-const generateCommitHistoryTable = async (argv: yargs.Arguments): Promise<void> => {
-  const repoName = argv['repo-name'] as string;
-  const history = await fetchReversedOneLineCommitHistory({ execFn: exec });
-  const headers = createCommitHistoryTableHeaders();
-  const body = history.map(createCommitHistoryTableRow.bind(null, repoName)).join('\n');
-  const table = [headers, body].join('\n');
-
-  console.log(table);
-};
+import generateCommitHistoryTable from './generate-cmt-table';
 
 (async () => {
   await yargs

@@ -1,4 +1,5 @@
-import { type exec } from 'child_process';
+import { exec } from 'child_process';
+import yargs from 'yargs';
 
 export async function fetchReversedOneLineCommitHistory(props: {
   execFn: typeof exec;
@@ -38,4 +39,14 @@ export function createCommitHistoryTableRow(
   const { sha, msg } = cmt;
   const cmtURL = `https://github.com/kaiosilveira/${repoName}/commit/${sha}`;
   return `| [${sha.slice(0, 7)}](${cmtURL}) | ${msg} |`;
+}
+
+export default async function generateCommitHistoryTable(argv: yargs.Arguments): Promise<void> {
+  const repoName = argv['repo-name'] as string;
+  const history = await fetchReversedOneLineCommitHistory({ execFn: exec });
+  const headers = createCommitHistoryTableHeaders();
+  const body = history.map(createCommitHistoryTableRow.bind(null, repoName)).join('\n');
+  const table = [headers, body].join('\n');
+
+  console.log(table);
 }
