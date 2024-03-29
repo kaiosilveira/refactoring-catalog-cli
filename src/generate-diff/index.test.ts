@@ -1,7 +1,9 @@
+import { exec } from 'child_process';
 import {
   mapCommitTextToDiffObj,
   mapCommitHistoryToDiffObjects,
   generateCommitDiffMarkdown,
+  fetchReversedCommitHistoryWithPatch,
 } from '.';
 
 const diff = `
@@ -197,5 +199,31 @@ describe('generateCommitDiffMarkdown', () => {
         .split('\n')
         .map(l => l.trim()),
     );
+  });
+});
+
+describe('fetchReversedCommitHistoryWithPatch', () => {
+  it('should fetch the commit history with patch', async () => {
+    const execFn = jest.fn((cmd, cb) => cb(null, diff)) as unknown as typeof exec;
+    const commitHistory = await fetchReversedCommitHistoryWithPatch({ execFn });
+
+    expect(execFn).toHaveBeenCalledWith('git log --patch --reverse', expect.any(Function));
+    expect(commitHistory).toEqual(diff);
+  });
+
+  it('should fetch the commit history with patch between two commits', async () => {
+    const execFn = jest.fn((cmd, cb) => cb(null, diff)) as unknown as typeof exec;
+    const commitHistory = await fetchReversedCommitHistoryWithPatch({
+      execFn,
+      start: 'sha123',
+      end: 'sha456',
+    });
+
+    expect(execFn).toHaveBeenCalledWith(
+      'git log sha123..sha456 --patch --reverse',
+      expect.any(Function),
+    );
+
+    expect(commitHistory).toEqual(diff);
   });
 });

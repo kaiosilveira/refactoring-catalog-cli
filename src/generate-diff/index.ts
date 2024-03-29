@@ -1,3 +1,5 @@
+import { exec } from 'child_process';
+
 export function mapCommitTextToDiffObj(commit: string): any {
   const [commitLine, authorLine, dateLine, messageLine, descriptionLine, ...contents] = commit
     .trim()
@@ -29,4 +31,21 @@ export function generateCommitDiffMarkdown(diff: any): string {
     ${diff.contents}
     \`\`\`
   `;
+}
+
+export async function fetchReversedCommitHistoryWithPatch(props: {
+  start?: string;
+  end?: string;
+  execFn: typeof exec;
+}): Promise<string> {
+  const { execFn, start, end } = props;
+  return await new Promise((resolve, reject) => {
+    const cmd =
+      start && end ? `git log ${start}..${end} --patch --reverse` : 'git log --patch --reverse';
+
+    execFn(cmd, (err, stdout) => {
+      if (err === null) resolve(stdout);
+      else reject(err);
+    });
+  });
 }
