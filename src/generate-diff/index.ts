@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import yargs from 'yargs';
 
 export function mapCommitTextToDiffObj(commit: string): any {
   const [commitLine, authorLine, dateLine, messageLine, ...contents] = commit
@@ -56,4 +57,16 @@ export async function fetchReversedCommitHistoryWithPatch(props: {
       else reject(err);
     });
   });
+}
+
+export default async function generatePatchMarkdown(argv: yargs.Arguments): Promise<any> {
+  const commitHistory = await fetchReversedCommitHistoryWithPatch({
+    execFn: exec,
+    start: argv['first-commit-SHA'] as string,
+    end: argv['last-commit-SHA'] as string,
+  });
+
+  const diffObjs = mapCommitHistoryToDiffObjects(commitHistory);
+  const markdown = diffObjs.map(generateCommitDiffMarkdown).join('\n');
+  console.log(markdown);
 }
