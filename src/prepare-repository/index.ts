@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/core';
-import yargs from 'yargs';
+import type * as yargs from 'yargs';
 
 export default async function prepareRepository(argv: yargs.Arguments): Promise<void> {
   const repoName = argv['repo-name'] as string;

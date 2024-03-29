@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import yargs from 'yargs';
+import type * as yargs from 'yargs';
 
 export function mapCommitTextToDiffObj(commit: string): any {
   const [commitLine, authorLine, dateLine, messageLine, ...contents] = commit
@@ -22,7 +22,7 @@ export function mapCommitHistoryToDiffObjects(commitHistory: string): any[] {
   let commit = '';
   for (const line of commitHistory.split('\n')) {
     if (/commit\s\w{40}/gi.test(line)) {
-      if (commit) groups.push(commit);
+      if (commit !== '') groups.push(commit);
       commit = line;
     } else {
       commit += '\n' + line;
@@ -50,7 +50,9 @@ export async function fetchReversedCommitHistoryWithPatch(props: {
   const { execFn, start, end } = props;
   return await new Promise((resolve, reject) => {
     const cmd =
-      start && end ? `git log ${start}..${end} --patch --reverse` : 'git log --patch --reverse';
+      start !== undefined && end !== undefined
+        ? `git log ${start}..${end} --patch --reverse`
+        : 'git log --patch --reverse';
 
     execFn(cmd, (err, stdout) => {
       if (err === null) resolve(stdout);

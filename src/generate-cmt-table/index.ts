@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import yargs from 'yargs';
+import type * as yargs from 'yargs';
 
 export async function fetchReversedOneLineCommitHistory(props: {
   execFn: typeof exec;
