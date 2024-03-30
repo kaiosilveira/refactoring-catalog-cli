@@ -20,7 +20,7 @@ export function updateReadmeContents(markdown: string, repoName: string): string
 }
 
 export default function updateReadmeFile(repoName: string): void {
-  const readmePath = path.join(process.cwd(), 'TEST.md');
+  const readmePath = path.join(process.cwd(), 'README.md');
   const readmeContent = fs.readFileSync(readmePath, 'utf-8');
   const updatedReadmeContent = updateReadmeContents(readmeContent, repoName);
   fs.writeFileSync(readmePath, updatedReadmeContent);
