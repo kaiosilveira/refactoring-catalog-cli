@@ -21,7 +21,11 @@ PS: External installations are blocked and require authorization. Contact me if 
 
 **`prepare-repository -r <repository_name>`**
 
-Uses [Octokit](https://github.com/octokit) to update the repository's description, tags, and URL on GitHub.
+Uses [Octokit](https://github.com/octokit) to:
+
+- update the repository's description, tags, and URL on GitHub
+- update the `README.md` file with the repository name
+- update `package.json` with the repository name and URL
 
 Sample usage:
 
