@@ -1,4 +1,4 @@
-Command Line Interface tools to assist on the development of my refactoring catalog work.
+Command Line Interface tools to assist in the development of my refactoring catalog work.
 
 [![Continuous Integration](https://github.com/kaiosilveira/refactoring-catalog-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/kaiosilveira/refactoring-catalog-cli/actions/workflows/ci.yml)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
@@ -32,6 +32,8 @@ Sample usage:
 ```bash
 npx @kaiosilveira/refactoring-catalog-cli prepare-repository -r rename-field
 ```
+
+PS: an environment variable named `GITHUB_TOKEN` is needed. This should be a personal GitHub Access Token.
 
 **`generate-cmt-table -r <repository_name>`**
 
