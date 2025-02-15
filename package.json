@@ -57,7 +57,7 @@
     "yarn": ">=1.22.19"
   },
   "dependencies": {
-    "@octokit/core": "^5",
+    "@octokit/core": "^6",
     "eslint-config-love": "^43.1.0",
     "yargs": "^17.7.2"
   }
